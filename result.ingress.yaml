@@ -1,11 +1,12 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: result-ingress
   namespace: default
-  annotations:
-    kubernetes.io/ingress.class: traefik
+  name: result
+  labels:
+    app: result
 spec:
+  ingressClassName: traefik
   rules:
     - host: result.dop.io
       http:
