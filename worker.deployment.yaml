@@ -19,10 +19,10 @@ spec:
           image: epitechcontent/t-dop-600-worker:k8s
           resources:
             limits:
-              memory: 256Mi
+              memory: 256M
               cpu: 500m
             requests:
-              memory: 128Mi
+              memory: 128M
               cpu: 250m
           env:
             - name: REDIS_HOST
