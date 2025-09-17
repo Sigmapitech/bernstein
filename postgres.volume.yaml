@@ -11,11 +11,8 @@ spec:
   volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
-  storageClassName: local-storage
   local:
     path: /var/lib/postgresql/data
-  claimRef:
-    name: postgres
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -35,9 +32,6 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: local-storage
   resources:
     requests:
-      storage: 1G
-    limits:
       storage: 64G
