@@ -30,5 +30,14 @@ spec:
                 name: redis
             - configMapRef:
                 name: postgres
-            - secretRef:
-                name: postgres
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: password
