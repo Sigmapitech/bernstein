@@ -12,7 +12,7 @@
       inherit (pkgs) lib;
       kubectl = lib.getExe pkgs.kubectl;
     in {
-      default = pkgs.writeScriptBin "apply" ''
+      default = pkgs.writeShellScriptBin "apply" ''
         ${kubectl} apply -f cadvisor.daemonset.yaml
         ${kubectl} apply -f postgres.secret.yaml \
           -f postgres.configmap.yaml \
