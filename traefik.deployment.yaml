@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik
+  namespace: kube-public
+  labels:
+    app: traefik
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: traefik
+  template:
+    metadata:
+      labels:
+        app: traefik
+    spec:
+      serviceAccountName: traefik
+      restartPolicy: Always
+      containers:
+        - name: traefik
+          image: traefik:3.1
+          args:
+            - --api.insecure=true
+            - --providers.kubernetesingress=true
+            - --entryPoints.web.address=:80
+            - --entryPoints.dashboard.address=:8080
+          ports:
+            - containerPort: 80
+              name: web
+            - containerPort: 8080
+              name: dashboard
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128M
+            limits:
+              cpu: 500m
+              memory: 256M
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - traefik
+              topologyKey: kubernetes.io/hostname
