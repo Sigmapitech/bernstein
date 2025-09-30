@@ -61,7 +61,10 @@
 
         # Update /etc/hosts with node IPs
         NODES_IP=$(kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}')
-        echo "$NODES_IP poll.dop.io result.dop.io" | sudo tee -a /etc/hosts
+        if [ ! -f /etc/NIXOS ]; then
+          echo "This part of script is intended for nix and not NIXOS systems."
+          echo "$NODES_IP poll.dop.io result.dop.io" | sudo tee -a /etc/hosts
+        fi
 
         echo "All done!"
       '';
