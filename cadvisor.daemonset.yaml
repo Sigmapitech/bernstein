@@ -24,10 +24,10 @@ spec:
               protocol: TCP
           resources:
             requests:
-              memory: 200Mi
+              memory: 200M
               cpu: 150m
             limits:
-              memory: 300Mi
+              memory: 300M
               cpu: 300m
           volumeMounts:
             - name: rootfs
