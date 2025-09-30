@@ -2,14 +2,14 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: default
-  name: redis
+  name: result
   labels:
-    app: redis
+    app: result
 spec:
   selector:
-    app: redis
+    app: result
   ports:
     - protocol: TCP
-      port: 6379
-      targetPort: 6379
+      port: 80
+      targetPort: 80
   type: ClusterIP
