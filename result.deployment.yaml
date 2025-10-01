@@ -55,3 +55,13 @@ spec:
                 configMapKeyRef:
                   name: postgres
                   key: postgres_db
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - poll
+              topologyKey: "kubernetes.io/hostname"
