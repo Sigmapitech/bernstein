@@ -15,9 +15,12 @@ metadata:
     app: traefik
 rules:
   - apiGroups: [""]
-    resources: ["services", "endpoints", "secrets", "pods"]
+    resources: ["services", "endpoints", "secrets", "nodes", "configmaps"]
     verbs: ["get", "list", "watch"]
-  - apiGroups: ["extensions", "networking.k8s.io"]
+  - apiGroups: ["discovery.k8s.io"]
+    resources: ["endpointslices"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["networking.k8s.io"]
     resources: ["ingresses", "ingressclasses"]
     verbs: ["get", "list", "watch"]
 ---
