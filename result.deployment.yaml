@@ -43,5 +43,5 @@ spec:
                   - key: app
                     operator: In
                     values:
-                      - poll
+                      - result
               topologyKey: "kubernetes.io/hostname"
