@@ -26,6 +26,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  namespace: default
   name: postgres
   labels:
     app: postgres
