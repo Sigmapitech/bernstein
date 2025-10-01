@@ -6,6 +6,6 @@ metadata:
   labels:
     app: postgres
 data:
-  postgres_host: "postgres"
-  postgres_port: "5432"
-  postgres_db: "t_dop_600"
+  POSTGRES_HOST: "postgres"
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: "t_dop_600"

@@ -6,4 +6,4 @@ metadata:
   labels:
     app: redis
 data:
-  redis_host: "redis"
+  REDIS_HOST: "redis"

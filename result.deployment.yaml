@@ -29,32 +29,12 @@ spec:
             limits:
               cpu: 250m
               memory: 128M
-          env:
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: postgres
-                  key: username
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres
-                  key: password
-            - name: POSTGRES_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres
-                  key: postgres_host
-            - name: POSTGRES_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres
-                  key: postgres_port
-            - name: POSTGRES_DB
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres
-                  key: postgres_db
+
+          envFrom:
+            - configMapRef:
+                name: postgres
+            - secretRef:
+                name: postgres
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
