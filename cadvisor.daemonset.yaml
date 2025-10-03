@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: cadvisor
-  namespace: kube-system
   labels:
     app: cadvisor
+  name: cadvisor
+  namespace: kube-system
 spec:
   selector:
     matchLabels:
@@ -14,52 +14,52 @@ spec:
       labels:
         app: cadvisor
     spec:
-      restartPolicy: Always
       containers:
-        - name: cadvisor
-          image: gcr.io/cadvisor/cadvisor:latest
+        - image: gcr.io/cadvisor/cadvisor:latest
+          name: cadvisor
           ports:
             - containerPort: 8080
               name: http
               protocol: TCP
           resources:
-            requests:
-              memory: 200M
-              cpu: 150m
             limits:
-              memory: 300M
               cpu: 300m
+              memory: 300M
+            requests:
+              cpu: 150m
+              memory: 200M
           volumeMounts:
-            - name: rootfs
-              mountPath: /rootfs
+            - mountPath: /rootfs
+              name: rootfs
               readOnly: true
-            - name: var-run
-              mountPath: /var/run
+            - mountPath: /var/run
+              name: var-run
               readOnly: true
-            - name: sys
-              mountPath: /sys
+            - mountPath: /sys
+              name: sys
               readOnly: true
-            - name: docker
-              mountPath: /var/lib/docker
+            - mountPath: /var/lib/docker
+              name: docker
               readOnly: true
-            - name: disk
-              mountPath: /dev/disk
+            - mountPath: /dev/disk
+              name: disk
               readOnly: true
       hostNetwork: true
       hostPID: true
+      restartPolicy: Always
       volumes:
-        - name: rootfs
-          hostPath:
+        - hostPath:
             path: /
-        - name: var-run
-          hostPath:
+          name: rootfs
+        - hostPath:
             path: /var/run
-        - name: sys
-          hostPath:
+          name: var-run
+        - hostPath:
             path: /sys
-        - name: docker
-          hostPath:
+          name: sys
+        - hostPath:
             path: /var/lib/docker
-        - name: disk
-          hostPath:
+          name: docker
+        - hostPath:
             path: /dev/disk
+          name: disk

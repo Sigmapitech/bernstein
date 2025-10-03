@@ -1,22 +1,22 @@
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: kube-public
-  name: traefik
   labels:
     app: traefik
+  name: traefik
+  namespace: kube-public
 spec:
-  selector:
-    app: traefik
   ports:
     - name: web
-      protocol: TCP
+      nodePort: 30021
       port: 80
-      targetPort: 80
-      nodePort: 30021   # HTTP proxy
-    - name: dashboard
       protocol: TCP
+      targetPort: 80
+    - name: dashboard
+      nodePort: 30042
       port: 8080
+      protocol: TCP
       targetPort: 8080
-      nodePort: 30042   # Dashboard
+  selector:
+    app: traefik
   type: NodePort

@@ -1,16 +1,15 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  namespace: default
-  name: postgres
   labels:
     app: postgres
+  name: postgres
+  namespace: default
 spec:
+  accessModes:
+    - ReadWriteOnce
   capacity:
     storage: 64G
-  volumeMode: Filesystem
-  accessModes:
-  - ReadWriteOnce
   local:
     path: /var/lib/postgresql/data
   nodeAffinity:
@@ -21,15 +20,15 @@ spec:
               operator: In
               values:
                 - minikube
-
+  volumeMode: Filesystem
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: default
-  name: postgres
   labels:
     app: postgres
+  name: postgres
+  namespace: default
 spec:
   accessModes:
     - ReadWriteOnce

@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: default
-  name: result
   labels:
     app: result
+  name: result
+  namespace: default
 spec:
   replicas: 2
   selector:
@@ -12,29 +12,10 @@ spec:
       app: result
   template:
     metadata:
-      name: result
       labels:
         app: result
+      name: result
     spec:
-      restartPolicy: Always
-      containers:
-        - name: redis
-          image: epitechcontent/t-dop-600-result:k8s
-          ports:
-            - containerPort: 80
-          resources:
-            requests:
-              cpu: 50m
-              memory: 64M
-            limits:
-              cpu: 250m
-              memory: 128M
-
-          envFrom:
-            - configMapRef:
-                name: postgres
-            - secretRef:
-                name: postgres
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -44,4 +25,22 @@ spec:
                     operator: In
                     values:
                       - result
-              topologyKey: "kubernetes.io/hostname"
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - envFrom:
+            - configMapRef:
+                name: postgres
+            - secretRef:
+                name: postgres
+          image: epitechcontent/t-dop-600-result:k8s
+          name: redis
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 250m
+              memory: 128M
+            requests:
+              cpu: 50m
+              memory: 64M
+      restartPolicy: Always

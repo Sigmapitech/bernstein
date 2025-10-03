@@ -1,41 +1,41 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: default
-  name: postgres
   labels:
     app: postgres
+  name: postgres
+  namespace: default
 spec:
   selector:
     matchLabels:
       app: postgres
   template:
     metadata:
-      name: postgres
       labels:
         app: postgres
+      name: postgres
     spec:
-      restartPolicy: Always
       containers:
-        - name: postgres
-          image: postgres:12
-          ports:
-            - containerPort: 5432
-          resources:
-            requests:
-              cpu: 50m
-              memory: 256M
-            limits:
-              cpu: 250m
-              memory: 512M
-          envFrom:
+        - envFrom:
             - configMapRef:
                 name: postgres
             - secretRef:
                 name: postgres
+          image: postgres:12
+          name: postgres
+          ports:
+            - containerPort: 5432
+          resources:
+            limits:
+              cpu: 250m
+              memory: 512M
+            requests:
+              cpu: 50m
+              memory: 256M
           volumeMounts:
-            - name: postgres-storage
-              mountPath: /var/lib/postgresql/data
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-storage
+      restartPolicy: Always
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:

@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: default
-  name: redis
   labels:
     app: redis
+  name: redis
+  namespace: default
 spec:
   selector:
     matchLabels:
       app: redis
   template:
     metadata:
-      name: redis
       labels:
         app: redis
+      name: redis
     spec:
-      restartPolicy: Always
       containers:
-        - name: redis
+        - envFrom:
+            - configMapRef:
+                name: redis
           image: redis:5.0
+          name: redis
           ports:
             - containerPort: 6379
           resources:
-            requests:
-              cpu: 50m       # 50miliCPUCore
-              memory: 256M
             limits:
               cpu: 250m
               memory: 4G
-          envFrom:
-            - configMapRef:
-                name: redis
+            requests:
+              cpu: 50m
+              memory: 256M
+      restartPolicy: Always
