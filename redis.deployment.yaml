@@ -16,10 +16,7 @@ spec:
       name: redis
     spec:
       containers:
-        - envFrom:
-            - configMapRef:
-                name: redis
-          image: redis:5.0
+        - image: redis:5.0
           name: redis
           ports:
             - containerPort: 6379
