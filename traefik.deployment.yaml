@@ -27,6 +27,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
         - args:
+            - '--log.level=DEBUG'
             - '--api.insecure=true'
             - '--api.dashboard=true'
             - '--providers.kubernetesingress=true'
